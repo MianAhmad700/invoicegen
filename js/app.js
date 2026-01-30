@@ -10,6 +10,40 @@ document.addEventListener("DOMContentLoaded", () => {
     initRegistrations();
     initInvoices();
 
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById("mobile-menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebarBtn = document.getElementById("close-sidebar");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    function toggleSidebar(show) {
+        if (sidebar) {
+            if (show) {
+                sidebar.classList.add("show");
+                if (sidebarOverlay) sidebarOverlay.classList.add("show");
+            } else {
+                sidebar.classList.remove("show");
+                if (sidebarOverlay) sidebarOverlay.classList.remove("show");
+            }
+        }
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent document click from closing immediately
+            toggleSidebar(true);
+        });
+    }
+
+    if (closeSidebarBtn) {
+        closeSidebarBtn.addEventListener("click", () => toggleSidebar(false));
+    }
+
+    // Close sidebar when clicking overlay
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener("click", () => toggleSidebar(false));
+    }
+
     // Navigation Logic
     const navButtons = document.querySelectorAll(".nav-btn");
     const sections = document.querySelectorAll(".section");
